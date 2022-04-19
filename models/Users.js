@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 // const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-  userName: {
+  username: {
     type: String,
     required: true,
     trim: true,
