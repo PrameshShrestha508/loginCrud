@@ -1,5 +1,6 @@
 // const Product = require("../model/Product");
 import Login from "../models/Users.js";
+import Bcrypt from "bcryptjs";
 export const userAll = async (req, res) => {
   try {
     const users = await Login.find();
@@ -19,12 +20,13 @@ export const userDetails = async (req, res) => {
 };
 
 export const userCreate = async (req, res) => {
-  // const { userName, email, address, password } = req.body;
+  let { username, email, address, password } = req.body;
+  password = Bcrypt.hashSync(password, 10);
   const userModel = new Login({
-    username: req.body.username,
-    email: req.body.email,
-    address: req.body.address,
-    password: req.body.password,
+    username: username,
+    email: email,
+    address: address,
+    password: password,
   });
   try {
     const savedUser = await userModel.save();
@@ -42,16 +44,16 @@ export const userCreate = async (req, res) => {
 export const userLogin = async (req, res) => {
   try {
     const email = req.body.email;
-    const password = req.body.password;
+    let password = req.body.password;
     const userEmail = await Login.findOne({ email: email });
-    if (userEmail.password === password) {
-      res.status(201).send("Data login successfully");
+    if (Bcrypt.compareSync(password, userEmail.password)) {
+      res.status(201).json({ message: "User login successfully" });
     } else {
-      res.send("Invalid login details");
+      res.json({ message: "Invalid login details" });
     }
     // res.json(product);
   } catch (error) {
-    res.status(400).send("Invalid login details");
+    res.status(400).json({ message: "User not found" });
   }
 };
 
@@ -68,7 +70,7 @@ export const userUpdate = async (req, res) => {
       user
     );
     res.json({
-      updateUser,
+      user,
       message: "Data Updated Successfully",
       statusCode: 200,
     });
