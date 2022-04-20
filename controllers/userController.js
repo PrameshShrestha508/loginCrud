@@ -59,11 +59,13 @@ export const userLogin = async (req, res) => {
 
 export const userUpdate = async (req, res) => {
   try {
+    let { username, email, address, password } = req.body;
+    password = Bcrypt.hashSync(password, 10);
     const user = {
-      username: req.body.username,
-      email: req.body.email,
-      address: req.body.address,
-      password: req.body.password,
+      username: username,
+      email: email,
+      address: address,
+      password: password,
     };
     const updateUser = await Login.findByIdAndUpdate(
       { _id: req.params.userId },
