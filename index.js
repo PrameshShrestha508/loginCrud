@@ -11,7 +11,7 @@ conn;
 
 // Middleware
 app.use(express.json());
-app.use("/user/", userRoutes);
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 // App Listen

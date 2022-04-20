@@ -41,17 +41,17 @@ export const userCreate = async (req, res) => {
 
 export const userLogin = async (req, res) => {
   try {
-    const user = await Login.find({
-      $and: [{ email: req.body.email }, { password: req.body.password }],
-    });
-    if (user) {
-      res.send("successfull login");
+    const email = req.body.email;
+    const password = req.body.password;
+    const userEmail = await Login.findOne({ email: email });
+    if (userEmail.password === password) {
+      res.status(201).send("Data login successfully");
     } else {
-      throw new error("error");
+      res.send("Invalid login details");
     }
     // res.json(product);
   } catch (error) {
-    res.json({ message: error });
+    res.status(400).send("Invalid login details");
   }
 };
 
