@@ -1,6 +1,8 @@
 // const Product = require("../model/Product");
 import Login from "../models/Users.js";
 import Bcrypt from "bcryptjs";
+import jsonwebtoken from "jsonwebtoken";
+const SECRET_KEY = process.env.SECRET_KEY;
 export const userAll = async (req, res) => {
   try {
     const users = await Login.find();
@@ -45,15 +47,16 @@ export const userLogin = async (req, res) => {
   try {
     const email = req.body.email;
     let password = req.body.password;
-    const userEmail = await Login.findOne({ email: email });
-    if (Bcrypt.compareSync(password, userEmail.password)) {
-      res.status(201).json({ message: "User login successfully" });
+    const userData = await Login.findOne({ email: email });
+    if (Bcrypt.compare(password, userData.password)) {
+      const token = jsonwebtoken.sign({ _id: userData._id }, SECRET_KEY);
+      res.status(201).json({ message: "User login successfully", token });
     } else {
       res.json({ message: "Invalid login details" });
     }
     // res.json(product);
   } catch (error) {
-    res.status(400).json({ message: "User not found" });
+    res.status(400).json({ message: error });
   }
 };
 
