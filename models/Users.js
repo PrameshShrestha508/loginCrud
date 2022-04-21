@@ -26,6 +26,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add a password"],
     trim: true,
+    minlength: [6, "Minimum password length is 6 character"],
   },
 });
 
