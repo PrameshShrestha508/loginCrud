@@ -1,5 +1,6 @@
 // const Product = require("../model/Product");
 import Contact from "../models/Contact.js";
+import { main } from "../utils/mailers.js";
 // import Bcrypt from "bcryptjs";
 // import jsonwebtoken from "jsonwebtoken";
 // const SECRET_KEY = process.env.SECRET_KEY;
@@ -31,6 +32,7 @@ export const contactCreate = async (req, res) => {
   });
   try {
     const savedContact = await contactModel.save();
+    main(email);
     res.send({
       savedContact,
       message: "Contact Added Successfully",

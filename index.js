@@ -3,6 +3,7 @@ import conn from "./db/conn.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users.js";
+import contactRoutes from "./routes/contacts.js";
 const app = express();
 dotenv.config();
 conn;
@@ -12,6 +13,7 @@ conn;
 // Middleware
 app.use(express.json());
 app.use("/user", userRoutes);
+app.use("/contact", contactRoutes);
 
 const PORT = process.env.PORT || 5000;
 // App Listen
