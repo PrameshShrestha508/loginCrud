@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users.js";
 import contactRoutes from "./routes/contacts.js";
+import projectRoutes from "./routes/projects.js";
 const app = express();
 dotenv.config();
 conn;
@@ -14,6 +15,7 @@ conn;
 app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/contact", contactRoutes);
+app.use("/project", projectRoutes);
 
 const PORT = process.env.PORT || 5000;
 // App Listen
