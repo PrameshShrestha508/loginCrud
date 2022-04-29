@@ -1,4 +1,4 @@
-# loginCrud
+# NodeCrud
 
 This is a server app project for the login and register, created using nodejs,expressjs and mongoose.
 
