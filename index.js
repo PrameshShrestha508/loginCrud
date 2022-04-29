@@ -1,6 +1,7 @@
 import express from "express";
 import conn from "./db/conn.js";
 import dotenv from "dotenv";
+import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users.js";
 import contactRoutes from "./routes/contacts.js";
@@ -12,6 +13,12 @@ conn;
 // const productRoutes = require("./routes/product");
 
 // Middleware
+app.use(
+  cors({
+    origin: "*",
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/contact", contactRoutes);

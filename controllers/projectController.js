@@ -12,11 +12,11 @@ export const projectAll = async (req, res) => {
 
 export const projectCreate = async (req, res) => {
   axios
-    .get("https://api.github.com/users/PrameshShrestha508/repos?per_page=6")
+    .get("https://api.github.com/users/PrameshShrestha508/repos")
     .then((res) => {
       //   console.log(res);
       const { data } = res;
-      console.log(data);
+      //   console.log(data);
       data.forEach((obj) => {
         new Projects({
           projectTitle: obj.name,

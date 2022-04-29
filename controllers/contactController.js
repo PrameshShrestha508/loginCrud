@@ -1,9 +1,7 @@
 // const Product = require("../model/Product");
 import Contact from "../models/Contact.js";
 import { main } from "../utils/mailers.js";
-// import Bcrypt from "bcryptjs";
-// import jsonwebtoken from "jsonwebtoken";
-// const SECRET_KEY = process.env.SECRET_KEY;
+
 export const contactAll = async (req, res) => {
   try {
     const contacts = await Contact.find();
@@ -43,23 +41,6 @@ export const contactCreate = async (req, res) => {
     res.status(400).send(error);
   }
 };
-
-// export const userLogin = async (req, res) => {
-//   try {
-//     const email = req.body.email;
-//     let password = req.body.password;
-//     const userData = await Login.findOne({ email: email });
-//     if (Bcrypt.compare(password, userData.password)) {
-//       const token = jsonwebtoken.sign({ _id: userData._id }, SECRET_KEY);
-//       res.status(201).json({ message: "User login successfully", token });
-//     } else {
-//       res.json({ message: "Invalid login details" });
-//     }
-//     // res.json(product);
-//   } catch (error) {
-//     res.status(400).json({ message: error });
-//   }
-// };
 
 export const contactUpdate = async (req, res) => {
   try {
