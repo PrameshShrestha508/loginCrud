@@ -5,19 +5,16 @@ This is a server app project for the login and register, created using nodejs,ex
 ## Packages Used
 
 ```
-  "dependencies":
-    "axios"
-    "bcryptjs"
-    "cors"
-    "dotenv"
-    "express"
-    "jsonwebtoken"
-    "mongoose"
-    "nodemailer"
-
-  ": {
-    "nodemon"
-  }
+    * axios
+    * bcryptjs
+    * cors
+    * dotenv
+    * express
+    * jsonwebtoken
+    * mongoose
+    * nodemailer
+    * nodemon
+  
 ```
 
 ## Available Scripts
