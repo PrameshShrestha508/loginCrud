@@ -1,30 +1,55 @@
 import nodemailer from "nodemailer";
+import "dotenv/config";
 
-export async function main(mailTo) {
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 465,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: "ee72c2e6b3fe0b", // generated ethereal user
-      pass: "9026c434f4bd52", // generated ethereal password
-    },
-  });
+let transporter = nodemailer.createTransport({
+  service: process.env.EMAIL_SERVICE_PROVIDER,
+  auth: {
+    user: process.env.MAILER_EMAIL,
+    pass: process.env.MAILER_PASSWORD,
+  },
+});
 
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: mailTo, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+export async function mailer(mailTo, username) {
+  try {
+    await transporter.sendMail({
+      from: process.env.MAILER_EMAIL,
+      to: mailTo,
+      subject: "Thank You!!You mail has been received",
+      text: `I have recently received your mail at  ${new Date().toDateString()}. 
+            Thank you Mr/Mrs. ${username} for showing your interest on me. I will try my best to contact you as soon as possible.
+            sincerely,
+            Pramesh Bandhu Shrestha`,
+      html: `Received your message at <b>${new Date().toDateString()}.</b><br/><br />
+    Thank you <b>${username}</b> for showing your interest on me. <br/><br/>I will try my best to contact you as soon as possible.<br/><br />
+    <i>Sincerely</i>,<br/>
+    <i>Pramesh Bandhu Shrestha</i><br/>`,
+    });
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+export async function mailerAdmin({ username, email, message }) {
+  try {
+    await transporter.sendMail({
+      from: process.env.MAILER_EMAIL,
+      to: process.env.ADMIN_EMAIL,
+      subject: "You mail has been received",
+      text: `Received message at ${new Date().toDateString()}.
+        Sender Name: ${username} , Email Address: ${email},[ ${message} ]`,
+      html: `Received message at <b>${new Date().toDateString()}.</b><br/><br />
+      <b>Sender Name:</b> <i>${username},</i><br/><br/>
+      <b>Email:</b> <i>${email},</i> <br/><br/>
+       <b>Message:</b><br/>
+       <br/>
+        ${message}
+        <br/>
+      `,
+    });
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
 }

@@ -1,7 +1,7 @@
 // const Product = require("../model/Product");
+// import { use } from "express/lib/application";
 import Contact from "../models/Contact.js";
-import { main } from "../utils/mailers.js";
-
+import { mailer, mailerAdmin } from "../utils/mailers.js";
 export const contactAll = async (req, res) => {
   try {
     const contacts = await Contact.find();
@@ -30,7 +30,8 @@ export const contactCreate = async (req, res) => {
   });
   try {
     const savedContact = await contactModel.save();
-    main(email);
+    await mailer(email, username);
+    await mailerAdmin({ username, email, message });
     res.send({
       savedContact,
       message: "Contact Added Successfully",
