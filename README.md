@@ -1,23 +1,20 @@
-# loginCrud
+# NodeCrud
 
 This is a server app project for the login and register, created using nodejs,expressjs and mongoose.
 
 ## Packages Used
 
 ```
-  "dependencies":
-    "axios"
-    "bcryptjs"
-    "cors"
-    "dotenv"
-    "express"
-    "jsonwebtoken"
-    "mongoose"
-    "nodemailer"
-
-  ": {
-    "nodemon"
-  }
+    * axios
+    * bcryptjs
+    * cors
+    * dotenv
+    * express
+    * jsonwebtoken
+    * mongoose
+    * nodemailer
+    * nodemon
+  
 ```
 
 ## Available Scripts
